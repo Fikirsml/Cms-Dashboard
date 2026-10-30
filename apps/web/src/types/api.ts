@@ -22,6 +22,30 @@ export type Workspace = {
   };
 };
 
+export type ProjectStatus =
+  | 'BACKLOG'
+  | 'PLANNED'
+  | 'IN_PROGRESS'
+  | 'COMPLETED'
+  | 'CANCELLED';
+
+export type Project = {
+  id: string;
+  name: string;
+  key: string;
+  description: string | null;
+  status: ProjectStatus;
+  workspaceId: string;
+  leadId: string | null;
+  creatorId: string;
+  createdAt: string;
+  updatedAt: string;
+  lead?: Pick<PublicUser, 'id' | 'name' | 'email' | 'avatarUrl'> | null;
+  _count?: {
+    issues: number;
+  };
+};
+
 export type AuthResponse = {
   token: string;
   user: PublicUser;
@@ -34,4 +58,17 @@ export type MeResponse = {
 
 export type WorkspacesResponse = {
   workspaces: Workspace[];
+};
+
+export type WorkspaceResponse = {
+  workspace: Workspace;
+  role?: string;
+};
+
+export type ProjectsResponse = {
+  projects: Project[];
+};
+
+export type ProjectResponse = {
+  project: Project;
 };
