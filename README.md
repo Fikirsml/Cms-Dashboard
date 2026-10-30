@@ -15,84 +15,67 @@ Senior Frontend Engineer portfolio project
 | Routing      | React Router v7                           |
 | Forms        | React Hook Form + Zod                     |
 | Backend      | Express + TypeScript                      |
+| Auth         | JWT + bcrypt                              |
 | ORM          | Prisma                                    |
 | Database     | PostgreSQL 16                             |
 | Testing      | Vitest + RTL + Playwright (coming next)   |
 | Infra        | Docker Compose                            |
 
-## Project Structure
-
-```
-apps/
-  web/          # Vite React frontend
-  api/          # Express + Prisma backend
-packages/
-  shared/       # Shared types & utilities
-```
-
 ## Getting Started
 
-### Prerequisites
-- Node.js 20+ (see `.nvmrc`)
-- Docker (for PostgreSQL)
-
-### Setup
-
 ```bash
-# Clone
 git clone https://github.com/Fikirsml/Cms-Dashboard.git
 cd Cms-Dashboard
-
-# Install dependencies
 npm install
 
-# Copy environment
 cp .env.example .env
+cp .env apps/api/.env
 
-# Start PostgreSQL
 docker compose up -d
-
-# Apply migrations & generate Prisma client
 npm run db:migrate
-# or: npm run db:push   (for rapid local prototyping)
+npm run db:seed
 ```
 
 ### Development
 
 ```bash
-# Run both apps (from root)
-npm run dev:web   # http://localhost:5173
 npm run dev:api   # http://localhost:4000
+npm run dev:web   # http://localhost:5173
 ```
 
-### Useful scripts
+### Seed accounts
 
-| Command              | Description                    |
-|----------------------|--------------------------------|
-| `npm run dev:web`    | Start frontend                 |
-| `npm run dev:api`    | Start backend                  |
-| `npm run db:migrate` | Run Prisma migrations          |
-| `npm run db:studio`  | Open Prisma Studio             |
-| `npm run build`      | Build all packages             |
+| Email            | Password     | Role  |
+|------------------|--------------|-------|
+| alice@forge.dev  | password123  | OWNER |
+| bob@forge.dev    | password123  | MEMBER |
 
-## Data Model (CMS-002)
+## API Overview
 
-Core entities:
+Base: `http://localhost:4000` · Auth header: `Authorization: Bearer <token>`
 
-| Model            | Purpose                                      |
-|------------------|----------------------------------------------|
-| **User**         | Account identity                             |
-| **Workspace**    | Top-level tenant (Linear org / Jira site)    |
-| **WorkspaceMember** | User ↔ Workspace with role (OWNER/ADMIN/MEMBER) |
-| **Project**      | Collection of issues; has short `key`        |
-| **Issue**        | Work item (`key-number` e.g. FORGE-42)       |
+### Auth
+- `POST /auth/register` — create user + personal workspace
+- `POST /auth/login`
+- `GET /auth/me`
 
-Enums: `WorkspaceRole`, `ProjectStatus`, `IssueStatus`, `IssuePriority`.
+### Workspaces
+- `GET/POST /workspaces`
+- `GET/PATCH /workspaces/:id`
+
+### Projects
+- `GET/POST /workspaces/:workspaceId/projects`
+- `GET/PATCH/DELETE /projects/:id`
+
+### Issues
+- `GET/POST /projects/:projectId/issues`
+- `GET/PATCH/DELETE /issues/:id`
 
 ## Ticket Status
 
-- [x] **CMS-001** — Initialize monorepo and production-grade scaffold
-- [x] **CMS-002** — Define core Prisma data model (User, Workspace, Project, Issue)
+- [x] **CMS-001** — Monorepo scaffold
+- [x] **CMS-002** — Core Prisma data model
+- [x] **CMS-003** — Full backend API (auth, CRUD, seed)
 
 ---
 
