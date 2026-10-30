@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { api } from '@/lib/api';
 import { useAuthStore } from '@/stores/auth';
@@ -52,32 +53,34 @@ export default function WorkspacesPage() {
       ) : (
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {workspaces.map((ws) => (
-            <li
-              key={ws.id}
-              className="rounded-xl border border-slate-800 bg-slate-900/50 p-5 hover:border-slate-700 transition-colors"
-            >
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <h2 className="font-medium text-white">{ws.name}</h2>
-                  <p className="mt-0.5 text-xs text-slate-500 font-mono">{ws.slug}</p>
+            <li key={ws.id}>
+              <Link
+                to={`/workspaces/${ws.id}`}
+                className="block rounded-xl border border-slate-800 bg-slate-900/50 p-5 hover:border-slate-700 transition-colors"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <h2 className="font-medium text-white">{ws.name}</h2>
+                    <p className="mt-0.5 text-xs text-slate-500 font-mono">{ws.slug}</p>
+                  </div>
+                  {ws.role && (
+                    <span className="shrink-0 rounded-md bg-slate-800 px-2 py-0.5 text-xs text-slate-400 uppercase tracking-wide">
+                      {ws.role}
+                    </span>
+                  )}
                 </div>
-                {ws.role && (
-                  <span className="shrink-0 rounded-md bg-slate-800 px-2 py-0.5 text-xs text-slate-400 uppercase tracking-wide">
-                    {ws.role}
-                  </span>
+                {ws.description && (
+                  <p className="mt-3 text-sm text-slate-400 line-clamp-2">{ws.description}</p>
                 )}
-              </div>
-              {ws.description && (
-                <p className="mt-3 text-sm text-slate-400 line-clamp-2">{ws.description}</p>
-              )}
-              <div className="mt-4 flex gap-4 text-xs text-slate-500">
-                {ws._count && (
-                  <>
-                    <span>{ws._count.projects} projects</span>
-                    <span>{ws._count.members} members</span>
-                  </>
-                )}
-              </div>
+                <div className="mt-4 flex gap-4 text-xs text-slate-500">
+                  {ws._count && (
+                    <>
+                      <span>{ws._count.projects} projects</span>
+                      <span>{ws._count.members} members</span>
+                    </>
+                  )}
+                </div>
+              </Link>
             </li>
           ))}
         </ul>
