@@ -43,6 +43,8 @@ npm run dev:api   # http://localhost:4000
 npm run dev:web   # http://localhost:5173
 ```
 
+The web app proxies `/api/*` → `http://localhost:4000`.
+
 ### Seed accounts
 
 | Email            | Password     | Role  |
@@ -76,6 +78,13 @@ Base: `http://localhost:4000` · Auth header: `Authorization: Bearer <token>`
 - [x] **CMS-001** — Monorepo scaffold
 - [x] **CMS-002** — Core Prisma data model
 - [x] **CMS-003** — Full backend API (auth, CRUD, seed)
+- [x] **CMS-004** — Frontend auth + app shell
+  - Login / Register (React Hook Form + Zod)
+  - Zustand auth store (localStorage)
+  - API client with Bearer token + 401 handling
+  - Protected / guest route guards
+  - App shell (sidebar + top bar)
+  - Workspaces list as post-login landing
 
 ---
 
