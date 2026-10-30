@@ -52,8 +52,9 @@ cp .env.example .env
 # Start PostgreSQL
 docker compose up -d
 
-# (Optional) Generate Prisma client once models exist
-# npm run db:generate
+# Apply migrations & generate Prisma client
+npm run db:migrate
+# or: npm run db:push   (for rapid local prototyping)
 ```
 
 ### Development
@@ -74,9 +75,24 @@ npm run dev:api   # http://localhost:4000
 | `npm run db:studio`  | Open Prisma Studio             |
 | `npm run build`      | Build all packages             |
 
+## Data Model (CMS-002)
+
+Core entities:
+
+| Model            | Purpose                                      |
+|------------------|----------------------------------------------|
+| **User**         | Account identity                             |
+| **Workspace**    | Top-level tenant (Linear org / Jira site)    |
+| **WorkspaceMember** | User ↔ Workspace with role (OWNER/ADMIN/MEMBER) |
+| **Project**      | Collection of issues; has short `key`        |
+| **Issue**        | Work item (`key-number` e.g. FORGE-42)       |
+
+Enums: `WorkspaceRole`, `ProjectStatus`, `IssueStatus`, `IssuePriority`.
+
 ## Ticket Status
 
 - [x] **CMS-001** — Initialize monorepo and production-grade scaffold
+- [x] **CMS-002** — Define core Prisma data model (User, Workspace, Project, Issue)
 
 ---
 
