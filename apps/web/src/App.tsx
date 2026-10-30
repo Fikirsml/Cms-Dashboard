@@ -4,6 +4,7 @@ import AppShell from '@/components/layout/AppShell';
 import LoginPage from '@/pages/auth/LoginPage';
 import RegisterPage from '@/pages/auth/RegisterPage';
 import WorkspacesPage from '@/pages/WorkspacesPage';
+import WorkspaceDetailPage from '@/pages/WorkspaceDetailPage';
 import { useAuthStore } from '@/stores/auth';
 
 function Landing() {
@@ -49,17 +50,15 @@ export default function App() {
     <Routes>
       <Route path="/" element={<Landing />} />
 
-      {/* Public auth routes — redirect if already logged in */}
       <Route element={<GuestRoute />}>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
       </Route>
 
-      {/* Protected app shell */}
       <Route element={<ProtectedRoute />}>
         <Route element={<AppShell />}>
           <Route path="/workspaces" element={<WorkspacesPage />} />
-          {/* Future: /workspaces/:id, /projects/:id, etc. */}
+          <Route path="/workspaces/:workspaceId" element={<WorkspaceDetailPage />} />
         </Route>
       </Route>
 
