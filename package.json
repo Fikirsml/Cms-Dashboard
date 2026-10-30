@@ -15,7 +15,8 @@
     "db:generate": "npm run db:generate -w @cms/api",
     "db:migrate": "npm run db:migrate -w @cms/api",
     "db:studio": "npm run db:studio -w @cms/api",
-    "db:push": "npm run db:push -w @cms/api"
+    "db:push": "npm run db:push -w @cms/api",
+    "db:seed": "npm run db:seed -w @cms/api"
   },
   "engines": {
     "node": ">=20"
