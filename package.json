@@ -1,0 +1,23 @@
+{
+  "name": "cms-dashboard",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspaces --if-present",
+    "dev:web": "npm run dev -w @cms/web",
+    "dev:api": "npm run dev -w @cms/api",
+    "build": "npm run build --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "db:generate": "npm run db:generate -w @cms/api",
+    "db:migrate": "npm run db:migrate -w @cms/api",
+    "db:studio": "npm run db:studio -w @cms/api",
+    "db:push": "npm run db:push -w @cms/api"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
