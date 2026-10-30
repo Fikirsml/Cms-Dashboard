@@ -41,3 +41,13 @@ export type IssuePriority = (typeof ISSUE_PRIORITIES)[number];
 export function formatIssueKey(projectKey: string, number: number): string {
   return `${projectKey}-${number}`;
 }
+
+/** Public user shape returned by the API (no password) */
+export type PublicUser = {
+  id: string;
+  email: string;
+  name: string;
+  avatarUrl: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
